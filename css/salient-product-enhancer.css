@@ -1,0 +1,41 @@
+/* Salient Product Enhancer Styles */
+.woocommerce .products .product .product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.woocommerce .products .product .product-price {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #e74c3c;
+    text-align: center;
+    font-weight: bold;
+}
+
+.woocommerce .products .product .buttons-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.woocommerce .products .product .view-product-button {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.woocommerce .products .product .view-product-button:hover {
+    background-color: #2980b9;
+}
+
+/* Ensure add to cart button and view product button align properly */
+.woocommerce .products .product .add_to_cart_button {
+    margin-right: 0 !important;
+}
