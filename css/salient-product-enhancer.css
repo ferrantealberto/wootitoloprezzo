@@ -1,5 +1,5 @@
 /* Salient Product Enhancer - Frontend Responsive Styles */
-/* Version: 2.0.0 - Completamente responsive con controlli backend */
+/* Version: 2.0.0 - Completamente responsive con controlli backend e allineamento corretto */
 
 /* Reset e Base Styles */
 .salient-custom-product-info {
@@ -33,12 +33,14 @@
     box-sizing: border-box !important;
 }
 
+/* CORREZIONE: Container pulsante con allineamento flessibile */
 .salient-button-container {
     position: relative;
     width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
     overflow: hidden;
+    /* RIMUOVO justify-content fisso per permettere controllo dal backend */
 }
 
 .salient-go-to-product {
@@ -73,13 +75,14 @@
     justify-content: center;
 }
 
+/* CORREZIONE: Container pulsante senza justify-content fisso */
 .woocommerce ul.products li.product .salient-button-container {
     order: 3;
     display: flex !important;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    /* RIMOSSO: justify-content: center; - ora controllato dal backend */
 }
 
 /* Button Alignment Fixes */
@@ -189,6 +192,7 @@
         flex-direction: column !important;
         align-items: center !important;
         gap: 6px !important;
+        /* L'allineamento è ora controllato dal CSS dinamico */
     }
     
     .salient-go-to-product {
@@ -488,6 +492,14 @@
 .salient-button-container {
     z-index: 2;
     position: relative;
+}
+
+/* CORREZIONE SPECIFICA PER POPPINS FONT */
+.salient-product-title[style*="Poppins"],
+.salient-product-price[style*="Poppins"],
+.salient-go-to-product[style*="Poppins"] {
+    font-display: swap !important;
+    font-feature-settings: "kern" 1, "liga" 1;
 }
 
 /* Final override to ensure visibility */

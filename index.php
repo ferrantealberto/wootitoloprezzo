@@ -53,6 +53,9 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             
             // Add responsive CSS
             add_action('wp_head', array($this, 'add_responsive_css'));
+            
+            // Load Google Fonts if Poppins is selected
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_google_fonts'));
         }
     }
 
@@ -74,6 +77,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             'title_font_size_tablet' => '16',
             'title_font_size_mobile' => '14',
             'title_font_weight' => '600',
+            'title_font_family' => 'inherit',
             'title_color' => '#333333',
             'title_alignment' => 'center',
             'title_margin_bottom' => '8',
@@ -83,6 +87,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             'price_font_size_tablet' => '14',
             'price_font_size_mobile' => '13',
             'price_font_weight' => '500',
+            'price_font_family' => 'inherit',
             'price_color' => '#e74c3c',
             'price_alignment' => 'center',
             'price_margin_bottom' => '12',
@@ -92,6 +97,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             'button_font_size_desktop' => '14',
             'button_font_size_tablet' => '13',
             'button_font_size_mobile' => '12',
+            'button_font_family' => 'inherit',
             'button_bg_color' => '#3498db',
             'button_text_color' => '#ffffff',
             'button_hover_bg_color' => '#2980b9',
@@ -120,6 +126,30 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             if (get_option('salient_woo_' . $option) === false) {
                 update_option('salient_woo_' . $option, $value);
             }
+        }
+    }
+
+    /**
+     * Enqueue Google Fonts if needed
+     */
+    public function enqueue_google_fonts() {
+        $fonts_needed = array();
+        
+        // Check if any element uses Poppins
+        if (get_option('salient_woo_title_font_family') === 'Poppins' ||
+            get_option('salient_woo_price_font_family') === 'Poppins' ||
+            get_option('salient_woo_button_font_family') === 'Poppins') {
+            $fonts_needed[] = 'Poppins:300,400,500,600,700';
+        }
+        
+        // Enqueue Google Fonts if needed
+        if (!empty($fonts_needed)) {
+            wp_enqueue_style(
+                'salient-woo-google-fonts',
+                'https://fonts.googleapis.com/css2?family=' . implode('&family=', $fonts_needed) . '&display=swap',
+                array(),
+                '1.0'
+            );
         }
     }
 
@@ -186,6 +216,21 @@ class Salient_WooCommerce_Product_Display_Enhancer {
     }
 
     /**
+     * Get alignment value for CSS (converts text alignment to flex alignment)
+     */
+    private function get_flex_alignment($alignment) {
+        switch ($alignment) {
+            case 'left':
+                return 'flex-start';
+            case 'right':
+                return 'flex-end';
+            case 'center':
+            default:
+                return 'center';
+        }
+    }
+
+    /**
      * Add custom CSS based on admin settings.
      */
     public function add_custom_css() {
@@ -229,6 +274,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
         .salient-product-title {
             font-size: <?php echo esc_attr(get_option('salient_woo_title_font_size_desktop', '18')); ?>px !important;
             font-weight: <?php echo esc_attr(get_option('salient_woo_title_font_weight', '600')); ?> !important;
+            font-family: <?php echo esc_attr(get_option('salient_woo_title_font_family', 'inherit')); ?> !important;
             margin-bottom: <?php echo esc_attr(get_option('salient_woo_title_margin_bottom', '8')); ?>px !important;
             color: <?php echo esc_attr(get_option('salient_woo_title_color', '#333333')); ?> !important;
             text-align: <?php echo esc_attr(get_option('salient_woo_title_alignment', 'center')); ?> !important;
@@ -241,14 +287,22 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             font-size: <?php echo esc_attr(get_option('salient_woo_price_font_size_desktop', '16')); ?>px !important;
             color: <?php echo esc_attr(get_option('salient_woo_price_color', '#e74c3c')); ?> !important;
             font-weight: <?php echo esc_attr(get_option('salient_woo_price_font_weight', '500')); ?> !important;
+            font-family: <?php echo esc_attr(get_option('salient_woo_price_font_family', 'inherit')); ?> !important;
             margin-bottom: <?php echo esc_attr(get_option('salient_woo_price_margin_bottom', '12')); ?>px !important;
             text-align: <?php echo esc_attr(get_option('salient_woo_price_alignment', 'center')); ?> !important;
             line-height: 1.4 !important;
         }
         
-        .salient-button-container {
-            text-align: <?php echo esc_attr(get_option('salient_woo_button_alignment', 'center')); ?>;
+        /* CORREZIONE ALLINEAMENTO PULSANTE - Sovrascrive CSS statico */
+        .salient-button-container,
+        .woocommerce ul.products li.product .salient-button-container {
+            text-align: <?php echo esc_attr(get_option('salient_woo_button_alignment', 'center')); ?> !important;
+            justify-content: <?php echo esc_attr($this->get_flex_alignment(get_option('salient_woo_button_alignment', 'center'))); ?> !important;
             margin-top: 10px;
+            display: flex !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
         }
         
         .salient-go-to-product {
@@ -258,6 +312,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             border-radius: <?php echo esc_attr(get_option('salient_woo_button_border_radius', '4')); ?>px !important;
             padding: <?php echo esc_attr(get_option('salient_woo_button_padding_vertical', '10')); ?>px <?php echo esc_attr(get_option('salient_woo_button_padding_horizontal', '16')); ?>px !important;
             font-size: <?php echo esc_attr(get_option('salient_woo_button_font_size_desktop', '14')); ?>px !important;
+            font-family: <?php echo esc_attr(get_option('salient_woo_button_font_family', 'inherit')); ?> !important;
             text-decoration: none !important;
             display: inline-block !important;
             transition: all 0.3s ease !important;
@@ -280,12 +335,25 @@ class Salient_WooCommerce_Product_Display_Enhancer {
         }
         <?php endif; ?>
         
-        /* Button alignment fixes */
+        /* Button alignment fixes with correct margin handling */
         .woocommerce ul.products li.product .add_to_cart_button,
         .woocommerce ul.products li.product .salient-go-to-product {
             display: inline-block !important;
             vertical-align: top !important;
         }
+        
+        /* Special margin handling for left alignment */
+        <?php if (get_option('salient_woo_button_alignment', 'center') === 'left'): ?>
+        .salient-button-container .salient-go-to-product {
+            margin-left: 0 !important;
+            margin-right: <?php echo esc_attr(get_option('salient_woo_button_margin_left', '8')); ?>px !important;
+        }
+        <?php elseif (get_option('salient_woo_button_alignment', 'center') === 'center'): ?>
+        .salient-button-container .salient-go-to-product {
+            margin-left: <?php echo esc_attr(get_option('salient_woo_button_margin_left', '8')); ?>px !important;
+            margin-right: 0 !important;
+        }
+        <?php endif; ?>
         
         /* Ensure our custom elements are shown */
         .salient-custom-product-info {
@@ -331,6 +399,12 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             .salient-custom-product-info {
                 padding: <?php echo esc_attr(get_option('salient_woo_container_padding', '12') - 2); ?>px 0;
             }
+            
+            /* Maintain alignment on tablet */
+            .salient-button-container,
+            .woocommerce ul.products li.product .salient-button-container {
+                justify-content: <?php echo esc_attr($this->get_flex_alignment(get_option('salient_woo_button_alignment', 'center'))); ?> !important;
+            }
         }
         
         /* Mobile Styles */
@@ -359,6 +433,13 @@ class Salient_WooCommerce_Product_Display_Enhancer {
             
             .salient-button-container {
                 margin-top: 8px;
+            }
+            
+            /* Maintain alignment on mobile */
+            .salient-button-container,
+            .woocommerce ul.products li.product .salient-button-container {
+                justify-content: <?php echo esc_attr($this->get_flex_alignment(get_option('salient_woo_button_alignment', 'center'))); ?> !important;
+                flex-direction: column !important;
             }
             
             /* Make buttons stack on mobile if needed */
@@ -413,6 +494,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
         register_setting('salient_woo_settings', 'salient_woo_title_font_size_tablet');
         register_setting('salient_woo_settings', 'salient_woo_title_font_size_mobile');
         register_setting('salient_woo_settings', 'salient_woo_title_font_weight');
+        register_setting('salient_woo_settings', 'salient_woo_title_font_family');
         register_setting('salient_woo_settings', 'salient_woo_title_color');
         register_setting('salient_woo_settings', 'salient_woo_title_alignment');
         register_setting('salient_woo_settings', 'salient_woo_title_margin_bottom');
@@ -422,6 +504,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
         register_setting('salient_woo_settings', 'salient_woo_price_font_size_tablet');
         register_setting('salient_woo_settings', 'salient_woo_price_font_size_mobile');
         register_setting('salient_woo_settings', 'salient_woo_price_font_weight');
+        register_setting('salient_woo_settings', 'salient_woo_price_font_family');
         register_setting('salient_woo_settings', 'salient_woo_price_color');
         register_setting('salient_woo_settings', 'salient_woo_price_alignment');
         register_setting('salient_woo_settings', 'salient_woo_price_margin_bottom');
@@ -431,6 +514,7 @@ class Salient_WooCommerce_Product_Display_Enhancer {
         register_setting('salient_woo_settings', 'salient_woo_button_font_size_desktop');
         register_setting('salient_woo_settings', 'salient_woo_button_font_size_tablet');
         register_setting('salient_woo_settings', 'salient_woo_button_font_size_mobile');
+        register_setting('salient_woo_settings', 'salient_woo_button_font_family');
         register_setting('salient_woo_settings', 'salient_woo_button_bg_color');
         register_setting('salient_woo_settings', 'salient_woo_button_text_color');
         register_setting('salient_woo_settings', 'salient_woo_button_hover_bg_color');
@@ -483,6 +567,19 @@ class Salient_WooCommerce_Product_Display_Enhancer {
                             <h2>Impostazioni Titolo Prodotto</h2>
                             <table class="form-table">
                                 <tr>
+                                    <th scope="row">Font Family</th>
+                                    <td>
+                                        <select name="salient_woo_title_font_family">
+                                            <option value="inherit" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'inherit'); ?>>Eredita dal tema</option>
+                                            <option value="Arial, sans-serif" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'Arial, sans-serif'); ?>>Arial</option>
+                                            <option value="Helvetica, sans-serif" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'Helvetica, sans-serif'); ?>>Helvetica</option>
+                                            <option value="Georgia, serif" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'Georgia, serif'); ?>>Georgia</option>
+                                            <option value="Times, serif" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'Times, serif'); ?>>Times</option>
+                                            <option value="Poppins, sans-serif" <?php selected(get_option('salient_woo_title_font_family', 'inherit'), 'Poppins, sans-serif'); ?>>Poppins</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Dimensione Font Desktop (px)</th>
                                     <td><input type="number" name="salient_woo_title_font_size_desktop" value="<?php echo esc_attr(get_option('salient_woo_title_font_size_desktop', '18')); ?>" min="10" max="50" /></td>
                                 </tr>
@@ -531,6 +628,19 @@ class Salient_WooCommerce_Product_Display_Enhancer {
                         <div id="tab-price" class="salient-tab-content">
                             <h2>Impostazioni Prezzo</h2>
                             <table class="form-table">
+                                <tr>
+                                    <th scope="row">Font Family</th>
+                                    <td>
+                                        <select name="salient_woo_price_font_family">
+                                            <option value="inherit" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'inherit'); ?>>Eredita dal tema</option>
+                                            <option value="Arial, sans-serif" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'Arial, sans-serif'); ?>>Arial</option>
+                                            <option value="Helvetica, sans-serif" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'Helvetica, sans-serif'); ?>>Helvetica</option>
+                                            <option value="Georgia, serif" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'Georgia, serif'); ?>>Georgia</option>
+                                            <option value="Times, serif" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'Times, serif'); ?>>Times</option>
+                                            <option value="Poppins, sans-serif" <?php selected(get_option('salient_woo_price_font_family', 'inherit'), 'Poppins, sans-serif'); ?>>Poppins</option>
+                                        </select>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th scope="row">Dimensione Font Desktop (px)</th>
                                     <td><input type="number" name="salient_woo_price_font_size_desktop" value="<?php echo esc_attr(get_option('salient_woo_price_font_size_desktop', '16')); ?>" min="10" max="50" /></td>
@@ -583,6 +693,19 @@ class Salient_WooCommerce_Product_Display_Enhancer {
                                 <tr>
                                     <th scope="row">Testo Pulsante</th>
                                     <td><input type="text" name="salient_woo_button_text" value="<?php echo esc_attr(get_option('salient_woo_button_text', 'Vai al prodotto')); ?>" class="regular-text" /></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Font Family</th>
+                                    <td>
+                                        <select name="salient_woo_button_font_family">
+                                            <option value="inherit" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'inherit'); ?>>Eredita dal tema</option>
+                                            <option value="Arial, sans-serif" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'Arial, sans-serif'); ?>>Arial</option>
+                                            <option value="Helvetica, sans-serif" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'Helvetica, sans-serif'); ?>>Helvetica</option>
+                                            <option value="Georgia, serif" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'Georgia, serif'); ?>>Georgia</option>
+                                            <option value="Times, serif" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'Times, serif'); ?>>Times</option>
+                                            <option value="Poppins, sans-serif" <?php selected(get_option('salient_woo_button_font_family', 'inherit'), 'Poppins, sans-serif'); ?>>Poppins</option>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Dimensione Font Desktop (px)</th>
@@ -704,6 +827,23 @@ class Salient_WooCommerce_Product_Display_Enhancer {
                                     <td>
                                         <textarea name="salient_woo_custom_css" rows="10" cols="50" class="large-text code"><?php echo esc_textarea(get_option('salient_woo_custom_css', '')); ?></textarea>
                                         <p class="description">Aggiungi CSS personalizzato che sovrascriverà gli stili predefiniti</p>
+                                        
+                                        <h4>CSS di esempio per forzare centratura pulsanti:</h4>
+                                        <textarea readonly rows="8" cols="50" class="large-text code" style="background: #f0f0f0; cursor: text;">
+/* Forza centratura assoluta del pulsante */
+.salient-button-container,
+.woocommerce ul.products li.product .salient-button-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.salient-go-to-product {
+    margin: 0 auto !important;
+}</textarea>
+                                        <p class="description">Copia e incolla questo CSS nell'area sopra per forzare la centratura completa dei pulsanti.</p>
                                     </td>
                                 </tr>
                             </table>

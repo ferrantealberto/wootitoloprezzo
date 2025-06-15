@@ -1,6 +1,6 @@
 /**
  * Salient WooCommerce Enhancer - Admin JavaScript
- * Version: 2.0.0
+ * Version: 2.0.0 - Con supporto font Poppins e allineamento corretto
  */
 
 (function($) {
@@ -22,6 +22,7 @@
             this.initFormValidation();
             this.initTooltips();
             this.initReset();
+            this.initFontHandling();
             this.bindEvents();
         },
 
@@ -73,6 +74,21 @@
             });
         },
 
+        // Initialize font handling
+        initFontHandling: function() {
+            // Monitor font family changes
+            $('select[name*="font_family"]').on('change', function() {
+                var fontFamily = $(this).val();
+                
+                // If Poppins is selected, show info message
+                if (fontFamily === 'Poppins, sans-serif') {
+                    SalientAdmin.showNotice('Font Poppins selezionato. Il font verrà caricato automaticamente da Google Fonts.', 'info');
+                }
+                
+                SalientAdmin.updatePreview();
+            });
+        },
+
         // Initialize live preview functionality
         initPreview: function() {
             this.updatePreview();
@@ -92,11 +108,13 @@
             var $title = $preview.find('.salient-product-title');
             var $price = $preview.find('.salient-product-price');
             var $button = $preview.find('.salient-go-to-product');
+            var $buttonContainer = $preview.find('.salient-button-container');
             
             // Update title styles
             $title.css({
                 'font-size': $('input[name="salient_woo_title_font_size_desktop"]').val() + 'px',
                 'font-weight': $('select[name="salient_woo_title_font_weight"]').val(),
+                'font-family': $('select[name="salient_woo_title_font_family"]').val(),
                 'color': $('input[name="salient_woo_title_color"]').val(),
                 'text-align': $('select[name="salient_woo_title_alignment"]').val(),
                 'margin-bottom': $('input[name="salient_woo_title_margin_bottom"]').val() + 'px'
@@ -106,6 +124,7 @@
             $price.css({
                 'font-size': $('input[name="salient_woo_price_font_size_desktop"]').val() + 'px',
                 'font-weight': $('select[name="salient_woo_price_font_weight"]').val(),
+                'font-family': $('select[name="salient_woo_price_font_family"]').val(),
                 'color': $('input[name="salient_woo_price_color"]').val(),
                 'text-align': $('select[name="salient_woo_price_alignment"]').val(),
                 'margin-bottom': $('input[name="salient_woo_price_margin_bottom"]').val() + 'px'
@@ -114,6 +133,7 @@
             // Update button styles and text
             $button.text($('input[name="salient_woo_button_text"]').val()).css({
                 'font-size': $('input[name="salient_woo_button_font_size_desktop"]').val() + 'px',
+                'font-family': $('select[name="salient_woo_button_font_family"]').val(),
                 'background-color': $('input[name="salient_woo_button_bg_color"]').val(),
                 'color': $('input[name="salient_woo_button_text_color"]').val(),
                 'border-radius': $('input[name="salient_woo_button_border_radius"]').val() + 'px',
@@ -128,10 +148,56 @@
                 'text-align': $('select[name="salient_woo_title_alignment"]').val()
             });
             
-            // Update button container alignment
-            $preview.find('.salient-button-container').css({
-                'text-align': $('select[name="salient_woo_button_alignment"]').val()
+            // CORREZIONE: Update button container alignment
+            var buttonAlignment = $('select[name="salient_woo_button_alignment"]').val();
+            var flexAlignment = SalientAdmin.getFlexAlignment(buttonAlignment);
+            
+            $buttonContainer.css({
+                'text-align': buttonAlignment,
+                'justify-content': flexAlignment,
+                'display': 'flex',
+                'align-items': 'center',
+                'flex-wrap': 'wrap'
             });
+            
+            // Load Google Fonts if Poppins is selected
+            SalientAdmin.loadGoogleFonts();
+        },
+
+        // Convert text alignment to flex alignment
+        getFlexAlignment: function(alignment) {
+            switch (alignment) {
+                case 'left':
+                    return 'flex-start';
+                case 'right':
+                    return 'flex-end';
+                case 'center':
+                default:
+                    return 'center';
+            }
+        },
+
+        // Load Google Fonts for preview
+        loadGoogleFonts: function() {
+            var fontsNeeded = [];
+            
+            // Check if any element uses Poppins
+            $('select[name*="font_family"]').each(function() {
+                if ($(this).val() === 'Poppins, sans-serif') {
+                    fontsNeeded.push('Poppins:300,400,500,600,700');
+                }
+            });
+            
+            // Load Google Fonts if needed
+            if (fontsNeeded.length > 0 && !$('#salient-admin-google-fonts').length) {
+                var fontUrl = 'https://fonts.googleapis.com/css2?family=' + fontsNeeded.join('&family=') + '&display=swap';
+                $('<link>')
+                    .attr('type', 'text/css')
+                    .attr('rel', 'stylesheet')
+                    .attr('href', fontUrl)
+                    .attr('id', 'salient-admin-google-fonts')
+                    .appendTo('head');
+            }
         },
 
         // Initialize form validation
@@ -172,15 +238,19 @@
         initTooltips: function() {
             // Add tooltips to specific fields
             var tooltips = {
+                'salient_woo_title_font_family': 'Seleziona il tipo di font per i titoli. Poppins verrà caricato da Google Fonts.',
+                'salient_woo_price_font_family': 'Seleziona il tipo di font per i prezzi. Poppins verrà caricato da Google Fonts.',
+                'salient_woo_button_font_family': 'Seleziona il tipo di font per i pulsanti. Poppins verrà caricato da Google Fonts.',
                 'salient_woo_mobile_breakpoint': 'Dispositivi con larghezza inferiore a questo valore useranno gli stili mobile',
                 'salient_woo_tablet_breakpoint': 'Dispositivi con larghezza inferiore a questo valore useranno gli stili tablet',
                 'salient_woo_container_max_width': 'Larghezza massima del container come percentuale del contenitore padre',
                 'salient_woo_button_border_radius': 'Raggio del bordo per angoli arrotondati (0 = angoli quadrati)',
+                'salient_woo_button_alignment': 'Controlla l\'allineamento del container pulsante (sinistra, centro, destra)',
                 'salient_woo_custom_css': 'CSS personalizzato che verrà aggiunto dopo gli stili predefiniti'
             };
             
             $.each(tooltips, function(fieldName, tooltipText) {
-                var $field = $('input[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
+                var $field = $('input[name="' + fieldName + '"], textarea[name="' + fieldName + '"], select[name="' + fieldName + '"]');
                 if ($field.length) {
                     var $tooltip = $('<span class="salient-tooltip" data-tooltip="' + tooltipText + '"></span>');
                     $field.after($tooltip);
@@ -224,6 +294,7 @@
                     'salient_woo_title_font_size_tablet': '16',
                     'salient_woo_title_font_size_mobile': '14',
                     'salient_woo_title_font_weight': '600',
+                    'salient_woo_title_font_family': 'inherit',
                     'salient_woo_title_color': '#333333',
                     'salient_woo_title_alignment': 'center',
                     'salient_woo_title_margin_bottom': '8'
@@ -233,6 +304,7 @@
                     'salient_woo_price_font_size_tablet': '14',
                     'salient_woo_price_font_size_mobile': '13',
                     'salient_woo_price_font_weight': '500',
+                    'salient_woo_price_font_family': 'inherit',
                     'salient_woo_price_color': '#e74c3c',
                     'salient_woo_price_alignment': 'center',
                     'salient_woo_price_margin_bottom': '12'
@@ -242,6 +314,7 @@
                     'salient_woo_button_font_size_desktop': '14',
                     'salient_woo_button_font_size_tablet': '13',
                     'salient_woo_button_font_size_mobile': '12',
+                    'salient_woo_button_font_family': 'inherit',
                     'salient_woo_button_bg_color': '#3498db',
                     'salient_woo_button_text_color': '#ffffff',
                     'salient_woo_button_hover_bg_color': '#2980b9',
@@ -321,13 +394,29 @@
                     SalientAdmin.autoSave();
                 }, 5000); // Auto-save after 5 seconds of inactivity
             });
+            
+            // Copy CSS to clipboard functionality
+            $('textarea[readonly]').on('click', function() {
+                $(this).select();
+                try {
+                    document.execCommand('copy');
+                    SalientAdmin.showNotice('CSS copiato negli appunti!', 'success');
+                } catch (err) {
+                    SalientAdmin.showNotice('Impossibile copiare automaticamente. Seleziona e copia manualmente.', 'warning');
+                }
+            });
         },
 
         // Show admin notice
         showNotice: function(message, type) {
             type = type || 'info';
             
-            var $notice = $('<div class="notice salient-notice ' + (type === 'error' ? 'error' : '') + '">' +
+            var noticeClass = 'notice salient-notice';
+            if (type === 'error' || type === 'warning') {
+                noticeClass += ' error';
+            }
+            
+            var $notice = $('<div class="' + noticeClass + '">' +
                 '<p>' + message + '</p>' +
                 '</div>');
             

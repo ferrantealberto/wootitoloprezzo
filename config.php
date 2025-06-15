@@ -52,6 +52,7 @@ class Salient_WooCommerce_Enhancer_Config {
             'title_font_size_tablet' => 16,
             'title_font_size_mobile' => 14,
             'title_font_weight' => 600,
+            'title_font_family' => 'inherit',
             'title_color' => '#333333',
             'title_alignment' => 'center',
             'title_margin_bottom' => 8,
@@ -61,6 +62,7 @@ class Salient_WooCommerce_Enhancer_Config {
             'price_font_size_tablet' => 14,
             'price_font_size_mobile' => 13,
             'price_font_weight' => 500,
+            'price_font_family' => 'inherit',
             'price_color' => '#e74c3c',
             'price_alignment' => 'center',
             'price_margin_bottom' => 12,
@@ -70,6 +72,7 @@ class Salient_WooCommerce_Enhancer_Config {
             'button_font_size_desktop' => 14,
             'button_font_size_tablet' => 13,
             'button_font_size_mobile' => 12,
+            'button_font_family' => 'inherit',
             'button_bg_color' => '#3498db',
             'button_text_color' => '#ffffff',
             'button_hover_bg_color' => '#2980b9',
@@ -94,6 +97,29 @@ class Salient_WooCommerce_Enhancer_Config {
             'custom_css' => ''
         );
     }
+    
+    /**
+     * Available font families
+     */
+    const FONT_FAMILIES = array(
+        'inherit' => 'Eredita dal tema',
+        'Arial, sans-serif' => 'Arial',
+        'Helvetica, sans-serif' => 'Helvetica',
+        'Georgia, serif' => 'Georgia',
+        'Times, serif' => 'Times',
+        'Poppins, sans-serif' => 'Poppins (Google Fonts)'
+    );
+    
+    /**
+     * Google Fonts that need to be loaded
+     */
+    const GOOGLE_FONTS = array(
+        'Poppins, sans-serif' => array(
+            'family' => 'Poppins',
+            'weights' => '300,400,500,600,700',
+            'display' => 'swap'
+        )
+    );
     
     /**
      * Responsive breakpoints
@@ -127,6 +153,15 @@ class Salient_WooCommerce_Enhancer_Config {
     );
     
     /**
+     * CSS alignment mapping for flexbox
+     */
+    const FLEX_ALIGNMENTS = array(
+        'left' => 'flex-start',
+        'center' => 'center',
+        'right' => 'flex-end'
+    );
+    
+    /**
      * Color palette for quick selection
      */
     const COLOR_PALETTE = array(
@@ -155,6 +190,10 @@ class Salient_WooCommerce_Enhancer_Config {
         ),
         'font_weight' => array(
             'allowed' => array('300', '400', '500', '600', '700'),
+            'type' => 'string'
+        ),
+        'font_family' => array(
+            'allowed' => array('inherit', 'Arial, sans-serif', 'Helvetica, sans-serif', 'Georgia, serif', 'Times, serif', 'Poppins, sans-serif'),
             'type' => 'string'
         ),
         'color' => array(
@@ -198,7 +237,8 @@ class Salient_WooCommerce_Enhancer_Config {
     const CACHE_SETTINGS = array(
         'css_cache_duration' => 3600, // 1 hour
         'settings_cache_duration' => 1800, // 30 minutes
-        'compatibility_cache_duration' => 86400 // 24 hours
+        'compatibility_cache_duration' => 86400, // 24 hours
+        'font_cache_duration' => 86400 // 24 hours for Google Fonts
     );
     
     /**
@@ -209,7 +249,8 @@ class Salient_WooCommerce_Enhancer_Config {
         'enable_js_minification' => true,
         'enable_gzip_compression' => true,
         'enable_browser_caching' => true,
-        'critical_css_inline' => true
+        'critical_css_inline' => true,
+        'preload_google_fonts' => true
     );
     
     /**
@@ -220,7 +261,8 @@ class Salient_WooCommerce_Enhancer_Config {
         'validate_color_codes' => true,
         'escape_output' => true,
         'verify_nonces' => true,
-        'check_capabilities' => true
+        'check_capabilities' => true,
+        'validate_font_families' => true
     );
     
     /**
@@ -231,17 +273,20 @@ class Salient_WooCommerce_Enhancer_Config {
             'salient' => array(
                 'tested' => true,
                 'version' => '15.0',
-                'specific_css' => true
+                'specific_css' => true,
+                'button_alignment_fix' => true
             ),
             'storefront' => array(
                 'tested' => true,
                 'version' => '4.0',
-                'specific_css' => false
+                'specific_css' => false,
+                'button_alignment_fix' => false
             ),
             'astra' => array(
                 'tested' => true,
                 'version' => '3.0',
-                'specific_css' => false
+                'specific_css' => false,
+                'button_alignment_fix' => false
             )
         ),
         'plugins' => array(
@@ -282,7 +327,8 @@ class Salient_WooCommerce_Enhancer_Config {
         'preview_update_delay' => 300, // 300ms
         'form_validation_delay' => 500, // 500ms
         'enable_live_preview' => true,
-        'enable_keyboard_shortcuts' => true
+        'enable_keyboard_shortcuts' => true,
+        'show_font_preview' => true
     );
     
     /**
@@ -294,7 +340,9 @@ class Salient_WooCommerce_Enhancer_Config {
         'enable_backup' => true,
         'enable_import_export' => true,
         'enable_analytics' => false,
-        'enable_a_b_testing' => false
+        'enable_a_b_testing' => false,
+        'enable_google_fonts' => true,
+        'enable_font_display_swap' => true
     );
     
     /**
@@ -303,7 +351,58 @@ class Salient_WooCommerce_Enhancer_Config {
     const API_ENDPOINTS = array(
         'analytics' => 'https://api.example.com/analytics',
         'support' => 'https://api.example.com/support',
-        'updates' => 'https://api.example.com/updates'
+        'updates' => 'https://api.example.com/updates',
+        'google_fonts' => 'https://fonts.googleapis.com/css2'
+    );
+    
+    /**
+     * CSS force alignment templates
+     */
+    const CSS_TEMPLATES = array(
+        'force_center_alignment' => '
+/* Forza centratura assoluta del pulsante */
+.salient-button-container,
+.woocommerce ul.products li.product .salient-button-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.salient-go-to-product {
+    margin: 0 auto !important;
+}',
+        'force_left_alignment' => '
+/* Forza allineamento a sinistra del pulsante */
+.salient-button-container,
+.woocommerce ul.products li.product .salient-button-container {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.salient-go-to-product {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}',
+        'force_right_alignment' => '
+/* Forza allineamento a destra del pulsante */
+.salient-button-container,
+.woocommerce ul.products li.product .salient-button-container {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    text-align: right !important;
+    width: 100% !important;
+}
+
+.salient-go-to-product {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}'
     );
     
     /**
@@ -314,6 +413,41 @@ class Salient_WooCommerce_Enhancer_Config {
         $value = get_option('salient_woo_' . $key, $default);
         
         return $value !== null ? $value : ($defaults[$key] ?? $default);
+    }
+    
+    /**
+     * Get flex alignment value from text alignment
+     */
+    public static function get_flex_alignment($alignment) {
+        return self::FLEX_ALIGNMENTS[$alignment] ?? 'center';
+    }
+    
+    /**
+     * Check if a font family requires Google Fonts
+     */
+    public static function requires_google_fonts($font_family) {
+        return array_key_exists($font_family, self::GOOGLE_FONTS);
+    }
+    
+    /**
+     * Get Google Fonts URL for required fonts
+     */
+    public static function get_google_fonts_url($font_families = array()) {
+        $fonts_to_load = array();
+        
+        foreach ($font_families as $font_family) {
+            if (self::requires_google_fonts($font_family)) {
+                $font_config = self::GOOGLE_FONTS[$font_family];
+                $fonts_to_load[] = $font_config['family'] . ':' . $font_config['weights'];
+            }
+        }
+        
+        if (empty($fonts_to_load)) {
+            return '';
+        }
+        
+        return self::API_ENDPOINTS['google_fonts'] . '?family=' . 
+               implode('&family=', $fonts_to_load) . '&display=swap';
     }
     
     /**
@@ -361,6 +495,7 @@ class Salient_WooCommerce_Enhancer_Config {
     private static function get_setting_type($key) {
         if (strpos($key, 'font_size') !== false) return 'font_size';
         if (strpos($key, 'font_weight') !== false) return 'font_weight';
+        if (strpos($key, 'font_family') !== false) return 'font_family';
         if (strpos($key, 'color') !== false) return 'color';
         if (strpos($key, 'alignment') !== false) return 'alignment';
         if (strpos($key, 'margin') !== false) return 'margin';
@@ -420,8 +555,23 @@ class Salient_WooCommerce_Enhancer_Config {
         return array(
             'css_cache' => 'salient_woo_css_cache',
             'settings_cache' => 'salient_woo_settings_cache',
-            'compatibility_cache' => 'salient_woo_compatibility_cache'
+            'compatibility_cache' => 'salient_woo_compatibility_cache',
+            'fonts_cache' => 'salient_woo_fonts_cache'
         );
+    }
+    
+    /**
+     * Get CSS template by name
+     */
+    public static function get_css_template($template_name) {
+        return self::CSS_TEMPLATES[$template_name] ?? '';
+    }
+    
+    /**
+     * Get all available CSS templates
+     */
+    public static function get_all_css_templates() {
+        return self::CSS_TEMPLATES;
     }
 }
 
@@ -446,5 +596,10 @@ if (!defined('SALIENT_WOO_DEBUG')) {
 // Performance mode
 if (!defined('SALIENT_WOO_PERFORMANCE_MODE')) {
     define('SALIENT_WOO_PERFORMANCE_MODE', !WP_DEBUG);
+}
+
+// Google Fonts feature flag
+if (!defined('SALIENT_WOO_ENABLE_GOOGLE_FONTS')) {
+    define('SALIENT_WOO_ENABLE_GOOGLE_FONTS', true);
 }
 ?>
