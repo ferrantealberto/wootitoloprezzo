@@ -1,0 +1,517 @@
+# Translation Template for Salient WooCommerce Product Display Enhancer
+# Copyright (C) 2025 Salient WooCommerce Product Display Enhancer
+# This file is distributed under the same license as the Salient WooCommerce Product Display Enhancer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Salient WooCommerce Product Display Enhancer 2.0.0\n"
+"Report-Msgid-Bugs-To: https://example.com/support\n"
+"POT-Creation-Date: 2025-01-15 10:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: index.php:58
+msgid "Vai al prodotto"
+msgstr ""
+
+#: index.php:142
+msgid "Salient WooCommerce Product Display Enhancer"
+msgstr ""
+
+#: index.php:143
+msgid "Salient WooCommerce"
+msgstr ""
+
+#: index.php:190
+msgid "Titolo Prodotto"
+msgstr ""
+
+#: index.php:191
+msgid "Prezzo"
+msgstr ""
+
+#: index.php:192
+msgid "Pulsante"
+msgstr ""
+
+#: index.php:193
+msgid "Container"
+msgstr ""
+
+#: index.php:194
+msgid "Responsive"
+msgstr ""
+
+#: index.php:195
+msgid "Avanzate"
+msgstr ""
+
+#: index.php:200
+msgid "Impostazioni Titolo Prodotto"
+msgstr ""
+
+#: index.php:203
+msgid "Dimensione Font Desktop (px)"
+msgstr ""
+
+#: index.php:207
+msgid "Dimensione Font Tablet (px)"
+msgstr ""
+
+#: index.php:211
+msgid "Dimensione Font Mobile (px)"
+msgstr ""
+
+#: index.php:215
+msgid "Peso Font"
+msgstr ""
+
+#: index.php:217
+msgid "Light (300)"
+msgstr ""
+
+#: index.php:218
+msgid "Normal (400)"
+msgstr ""
+
+#: index.php:219
+msgid "Medium (500)"
+msgstr ""
+
+#: index.php:220
+msgid "Semi-Bold (600)"
+msgstr ""
+
+#: index.php:221
+msgid "Bold (700)"
+msgstr ""
+
+#: index.php:226
+msgid "Colore Titolo"
+msgstr ""
+
+#: index.php:230
+msgid "Allineamento"
+msgstr ""
+
+#: index.php:232
+msgid "Sinistra"
+msgstr ""
+
+#: index.php:233
+msgid "Centro"
+msgstr ""
+
+#: index.php:234
+msgid "Destra"
+msgstr ""
+
+#: index.php:239
+msgid "Margine Inferiore (px)"
+msgstr ""
+
+#: index.php:245
+msgid "Impostazioni Prezzo"
+msgstr ""
+
+#: index.php:278
+msgid "Colore Prezzo"
+msgstr ""
+
+#: index.php:295
+msgid "Impostazioni Pulsante"
+msgstr ""
+
+#: index.php:298
+msgid "Testo Pulsante"
+msgstr ""
+
+#: index.php:326
+msgid "Colore Sfondo"
+msgstr ""
+
+#: index.php:330
+msgid "Colore Testo"
+msgstr ""
+
+#: index.php:334
+msgid "Colore Sfondo Hover"
+msgstr ""
+
+#: index.php:338
+msgid "Raggio Bordo (px)"
+msgstr ""
+
+#: index.php:342
+msgid "Padding Orizzontale (px)"
+msgstr ""
+
+#: index.php:346
+msgid "Padding Verticale (px)"
+msgstr ""
+
+#: index.php:350
+msgid "Margine Sinistro (px)"
+msgstr ""
+
+#: index.php:366
+msgid "Impostazioni Container"
+msgstr ""
+
+#: index.php:369
+msgid "Padding Container (px)"
+msgstr ""
+
+#: index.php:373
+msgid "Margine Superiore (px)"
+msgstr ""
+
+#: index.php:377
+msgid "Larghezza Massima (%)"
+msgstr ""
+
+#: index.php:383
+msgid "Impostazioni Responsive"
+msgstr ""
+
+#: index.php:386
+msgid "Abilita Responsive"
+msgstr ""
+
+#: index.php:389
+msgid "Abilita CSS responsive per dispositivi mobili"
+msgstr ""
+
+#: index.php:394
+msgid "Breakpoint Mobile (px)"
+msgstr ""
+
+#: index.php:397
+msgid "Dispositivi con larghezza inferiore a questo valore useranno gli stili mobile"
+msgstr ""
+
+#: index.php:401
+msgid "Breakpoint Tablet (px)"
+msgstr ""
+
+#: index.php:404
+msgid "Dispositivi con larghezza inferiore a questo valore useranno gli stili tablet"
+msgstr ""
+
+#: index.php:410
+msgid "Impostazioni Avanzate"
+msgstr ""
+
+#: index.php:413
+msgid "Nascondi Elementi Originali"
+msgstr ""
+
+#: index.php:416
+msgid "Nascondi titolo e prezzo originali di WooCommerce"
+msgstr ""
+
+#: index.php:421
+msgid "CSS Personalizzato"
+msgstr ""
+
+#: index.php:424
+msgid "Aggiungi CSS personalizzato che sovrascriverà gli stili predefiniti"
+msgstr ""
+
+#: index.php:430
+msgid "Salva Impostazioni"
+msgstr ""
+
+#: index.php:434
+msgid "Anteprima Live"
+msgstr ""
+
+#: index.php:437
+msgid "Titolo Prodotto di Esempio"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Salient WooCommerce Product Display Enhancer - Responsive"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://example.com/plugins/salient-woocommerce-product-display-enhancer"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Plugin WooCommerce avanzato per il tema Salient con controlli completi dal backend e design responsive per tutti i dispositivi."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Your Name"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://example.com"
+msgstr ""
+
+# Admin JavaScript Messages
+msgid "Il breakpoint mobile deve essere inferiore al breakpoint tablet."
+msgstr ""
+
+msgid "Sei sicuro di voler ripristinare tutte le impostazioni di questa sezione?"
+msgstr ""
+
+msgid "Impostazioni della sezione ripristinate con successo!"
+msgstr ""
+
+msgid "Salvataggio in corso..."
+msgstr ""
+
+msgid "È stata trovata una bozza salvata automaticamente. Vuoi caricarla?"
+msgstr ""
+
+msgid "Bozza caricata con successo!"
+msgstr ""
+
+msgid "salvato automaticamente"
+msgstr ""
+
+# Admin CSS Classes and Identifiers  
+msgid "Reset Sezione:"
+msgstr ""
+
+msgid "Ripristina tutte le impostazioni di questa sezione ai valori predefiniti."
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+# Responsive breakpoint descriptions
+msgid "Desktop"
+msgstr ""
+
+msgid "Tablet"
+msgstr ""
+
+msgid "Mobile"
+msgstr ""
+
+msgid "Piccolo Mobile"
+msgstr ""
+
+# Font weight options
+msgid "Leggero"
+msgstr ""
+
+msgid "Normale"
+msgstr ""
+
+msgid "Medio"
+msgstr ""
+
+msgid "Semi-Grassetto"
+msgstr ""
+
+msgid "Grassetto"
+msgstr ""
+
+# Alignment options
+msgid "Sinistra"
+msgstr ""
+
+msgid "Centro"
+msgstr ""
+
+msgid "Destra"
+msgstr ""
+
+# Units and measurements
+msgid "pixel"
+msgstr ""
+
+msgid "percentuale"
+msgstr ""
+
+msgid "em"
+msgstr ""
+
+msgid "rem"
+msgstr ""
+
+# Error messages
+msgid "Errore: WooCommerce non è attivo"
+msgstr ""
+
+msgid "Errore: Tema Salient non rilevato"
+msgstr ""
+
+msgid "Attenzione: Alcune funzionalità potrebbero non funzionare correttamente"
+msgstr ""
+
+# Success messages
+msgid "Impostazioni salvate con successo"
+msgstr ""
+
+msgid "Plugin attivato correttamente"
+msgstr ""
+
+msgid "Cache svuotata"
+msgstr ""
+
+# Help text and descriptions
+msgid "Questo controllo permette di impostare la dimensione del font per i dispositivi desktop"
+msgstr ""
+
+msgid "Questo controllo permette di impostare la dimensione del font per i dispositivi tablet"
+msgstr ""
+
+msgid "Questo controllo permette di impostare la dimensione del font per i dispositivi mobile"
+msgstr ""
+
+msgid "Seleziona il peso del font da light a bold"
+msgstr ""
+
+msgid "Scegli il colore usando il color picker"
+msgstr ""
+
+msgid "Imposta l'allineamento del testo"
+msgstr ""
+
+msgid "Distanza in pixel dal margine inferiore"
+msgstr ""
+
+msgid "Testo che apparirà sul pulsante"
+msgstr ""
+
+msgid "Colore di sfondo del pulsante"
+msgstr ""
+
+msgid "Colore del testo del pulsante"
+msgstr ""
+
+msgid "Colore di sfondo quando si passa il mouse sopra"
+msgstr ""
+
+msgid "Arrotondamento degli angoli del pulsante"
+msgstr ""
+
+msgid "Spazio interno orizzontale del pulsante"
+msgstr ""
+
+msgid "Spazio interno verticale del pulsante"
+msgstr ""
+
+msgid "Distanza dal pulsante 'Aggiungi al carrello'"
+msgstr ""
+
+msgid "Spaziatura interna del contenitore"
+msgstr ""
+
+msgid "Distanza dall'elemento superiore"
+msgstr ""
+
+msgid "Larghezza massima come percentuale"
+msgstr ""
+
+msgid "Attiva o disattiva il CSS responsive"
+msgstr ""
+
+msgid "Punto di rottura per dispositivi mobile"
+msgstr ""
+
+msgid "Punto di rottura per dispositivi tablet"
+msgstr ""
+
+msgid "Nasconde gli elementi originali di WooCommerce"
+msgstr ""
+
+msgid "CSS aggiuntivo personalizzato"
+msgstr ""
+
+# Accessibility labels
+msgid "Apri il color picker per"
+msgstr ""
+
+msgid "Incrementa valore"
+msgstr ""
+
+msgid "Diminuisci valore"
+msgstr ""
+
+msgid "Campo numerico per"
+msgstr ""
+
+msgid "Menu a tendina per"
+msgstr ""
+
+msgid "Casella di controllo per"
+msgstr ""
+
+msgid "Area di testo per"
+msgstr ""
+
+# Tab navigation
+msgid "Naviga alla scheda"
+msgstr ""
+
+msgid "Scheda attiva:"
+msgstr ""
+
+msgid "di"
+msgstr ""
+
+msgid "schede"
+msgstr ""
+
+# Plugin information
+msgid "Versione plugin:"
+msgstr ""
+
+msgid "Versione WooCommerce:"
+msgstr ""
+
+msgid "Versione WordPress:"
+msgstr ""
+
+msgid "Tema attivo:"
+msgstr ""
+
+# System status
+msgid "Stato sistema"
+msgstr ""
+
+msgid "Compatibilità verificata"
+msgstr ""
+
+msgid "Avviso compatibilità"
+msgstr ""
+
+msgid "Errore compatibilità"
+msgstr ""
+
+# Import/Export
+msgid "Importa impostazioni"
+msgstr ""
+
+msgid "Esporta impostazioni"
+msgstr ""
+
+msgid "Ripristina predefiniti"
+msgstr ""
+
+msgid "Backup impostazioni"
+msgstr ""
+
+# File upload
+msgid "Carica file"
+msgstr ""
+
+msgid "Seleziona file"
+msgstr ""
+
+msgid "File non valido"
+msgstr ""
+
+msgid "File caricato con successo"
+msgstr ""

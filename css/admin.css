@@ -1,0 +1,441 @@
+/* Salient WooCommerce Enhancer - Admin Styles */
+
+.salient-admin-container {
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+/* Tab Navigation */
+.salient-tabs {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.salient-tab-nav {
+    display: flex;
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.salient-tab-button {
+    background: transparent;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #50575e;
+    transition: all 0.2s ease;
+    border-right: 1px solid #c3c4c7;
+    flex: 1;
+    min-width: 120px;
+}
+
+.salient-tab-button:hover {
+    background: #e8e9ea;
+    color: #1d2327;
+}
+
+.salient-tab-button.active {
+    background: #2271b1;
+    color: #fff;
+    font-weight: 600;
+}
+
+.salient-tab-button:last-child {
+    border-right: none;
+}
+
+/* Tab Content */
+.salient-tab-content {
+    display: none;
+    padding: 30px;
+    background: #fff;
+}
+
+.salient-tab-content.active {
+    display: block;
+}
+
+.salient-tab-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1d2327;
+    font-size: 23px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+/* Form Elements */
+.salient-tab-content .form-table {
+    margin-bottom: 0;
+}
+
+.salient-tab-content .form-table th {
+    padding: 15px 10px 15px 0;
+    font-weight: 600;
+    color: #1d2327;
+    width: 200px;
+}
+
+.salient-tab-content .form-table td {
+    padding: 15px 10px;
+}
+
+.salient-tab-content input[type="number"],
+.salient-tab-content input[type="text"],
+.salient-tab-content select {
+    width: 100px;
+    min-height: 30px;
+    padding: 4px 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.salient-tab-content input[type="text"].regular-text {
+    width: 300px;
+}
+
+.salient-tab-content input[type="color"] {
+    width: 60px;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.salient-tab-content textarea {
+    width: 100%;
+    max-width: 600px;
+    min-height: 120px;
+    padding: 8px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.salient-tab-content .description {
+    color: #646970;
+    font-style: italic;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+/* Submit Button */
+.submit {
+    padding: 20px 30px 0;
+    border-top: 1px solid #c3c4c7;
+    background: #f6f7f7;
+    margin: 0 -30px -30px;
+}
+
+.submit .button-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px 20px;
+    height: auto;
+    font-weight: 500;
+}
+
+.submit .button-primary:hover,
+.submit .button-primary:focus {
+    background: #135e96;
+    border-color: #135e96;
+}
+
+/* Preview Section */
+.salient-preview {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.salient-preview h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #1d2327;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.salient-preview-container {
+    border: 2px dashed #c3c4c7;
+    padding: 20px;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 4px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.salient-preview-container .salient-custom-product-info {
+    margin-bottom: 15px;
+}
+
+.salient-preview-container .salient-product-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.salient-preview-container .salient-product-price {
+    font-size: 14px;
+    color: #e74c3c;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.salient-preview-container .salient-go-to-product {
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.salient-preview-container .salient-go-to-product:hover {
+    background: #2980b9;
+    color: #fff;
+}
+
+/* Responsive Design for Admin */
+@media (max-width: 1024px) {
+    .salient-tab-nav {
+        flex-direction: column;
+    }
+    
+    .salient-tab-button {
+        border-right: none;
+        border-bottom: 1px solid #c3c4c7;
+        flex: none;
+    }
+    
+    .salient-tab-button:last-child {
+        border-bottom: none;
+    }
+    
+    .salient-tab-content {
+        padding: 20px;
+    }
+    
+    .salient-tab-content .form-table th,
+    .salient-tab-content .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .salient-tab-content .form-table th {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    .salient-tab-content input[type="number"],
+    .salient-tab-content input[type="text"],
+    .salient-tab-content select {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .salient-admin-container {
+        margin: 10px 0;
+    }
+    
+    .salient-tab-content {
+        padding: 15px;
+    }
+    
+    .salient-tab-button {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+    
+    .salient-preview {
+        padding: 15px;
+    }
+    
+    .salient-preview-container {
+        padding: 15px;
+        max-width: 100%;
+    }
+    
+    .submit {
+        padding: 15px 15px 0;
+        margin: 0 -15px -15px;
+    }
+}
+
+/* Success/Error Messages */
+.notice.salient-notice {
+    margin: 20px 0;
+    padding: 12px;
+    border-left: 4px solid #00a32a;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.notice.salient-notice.error {
+    border-left-color: #d63638;
+}
+
+.notice.salient-notice p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+/* Loading States */
+.salient-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.salient-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #2271b1;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: salient-spin 1s linear infinite;
+}
+
+@keyframes salient-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tooltips */
+.salient-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    color: #2271b1;
+    margin-left: 5px;
+}
+
+.salient-tooltip::before {
+    content: '?';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background: #2271b1;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.salient-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d2327;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.salient-tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Color Picker Enhancement */
+.salient-color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.salient-color-picker-wrapper input[type="color"] {
+    margin: 0;
+}
+
+.salient-color-value {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 12px;
+    color: #646970;
+    background: #f6f7f7;
+    padding: 4px 8px;
+    border-radius: 3px;
+    border: 1px solid #c3c4c7;
+}
+
+/* Checkbox and Radio Styling */
+.salient-tab-content input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.1);
+}
+
+.salient-tab-content label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #1d2327;
+    cursor: pointer;
+}
+
+.salient-tab-content label:hover {
+    color: #2271b1;
+}
+
+/* Reset Button */
+.salient-reset-section {
+    background: #fff2cd;
+    border: 1px solid #dba617;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.salient-reset-button {
+    background: #dba617;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.salient-reset-button:hover {
+    background: #c7aa15;
+}
